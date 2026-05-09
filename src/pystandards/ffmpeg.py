@@ -14,6 +14,32 @@ class FfmpegVideoCodec(Enum):
     implementation).
     """
 
+    # These below are added because I used them in
+    # some personal projects
+    LIBX264 = 'libx264'
+    """
+    The compatibility king (mp4, mov, mvk), almost
+    every device.
+    """
+    LIBX265 = 'libx265'
+    """
+    Sucessor of H.264 with better compression but
+    less compatible (mp4, mkv).
+    """
+    PRORES_KS = 'prores_ks'
+    """
+    TODO: Explain it
+    """
+    H264_NVENC = 'h264_nvenc'
+    """
+    H.264 but for Nvidia graphic cards.
+    """
+    LIBVPX_VP9 = 'libvpx-vp9'
+    """
+    TODO: Explain it
+    """
+    # These below were extracted from this link:
+    # https://gist.github.com/dougal/160f33aa6f0c38c95b4bf4dbe4732c09
     CODEC_012V = "012v"
     """
     Uncompressed 4:2:2 10-bit
@@ -328,7 +354,10 @@ class FfmpegVideoCodec(Enum):
     """
     H264 = "h264"
     """
-    H.264 / AVC
+    H.264 / AVC.
+
+    Compatible with almost every device. This one
+    has specific implementations like 'libx264'.
     """
     HAP = "hap"
     """
@@ -608,7 +637,7 @@ class FfmpegVideoCodec(Enum):
     """
     QTRLE = "qtrle"
     """
-    QuickTime Animation RLE
+    QuickTime Animation RLE, supporting alpha (.mov).
     """
     R10K = "r10k"
     """
@@ -990,6 +1019,14 @@ class FfmpegAudioCodec(Enum):
     implementation).
     """
 
+    # These below are added because I used them in
+    # some personal projects
+    MP3FLOAT = 'mp3float'
+    """
+    Very popular, as float.
+    """
+    # These below were extracted from this link:
+    # https://gist.github.com/dougal/160f33aa6f0c38c95b4bf4dbe4732c09
     AUDIO_4GV = "4gv"
     """
     4GV (Fourth Generation Vocoder)
@@ -1004,7 +1041,10 @@ class FfmpegAudioCodec(Enum):
     """
     AAC = "aac"
     """
-    Advanced Audio Coding (AAC)
+    Advanced Audio Coding (AAC).
+
+    The current standard for video (mp4, mov, mvk)
+    with maximum compatibility.
     """
     AAC_LATM = "aac_latm"
     """
@@ -1376,9 +1416,11 @@ class FfmpegAudioCodec(Enum):
     """
     MP3 = "mp3"
     """
-    MPEG Audio Layer III
+    MPEG Audio Layer III.
+
+    Very popular in music but less used than aac or
+    opus.
     """
-        
     MP3ADU = "mp3adu"
     """
     ADU MP3 (Application Data Unit MPEG Layer III)
@@ -1405,7 +1447,10 @@ class FfmpegAudioCodec(Enum):
     """
     OPUS = "opus"
     """
-    Opus Interactive Audio Codec
+    Opus Interactive Audio Codec.
+
+    Excellent quality with low bitrate. Modern 
+    standard in WebM, streaming and VoIP.
     """
     PAF_AUDIO = "paf_audio"
     """
