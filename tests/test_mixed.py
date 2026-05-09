@@ -74,3 +74,16 @@ def test_file():
     assert SubtitleFileExtension.to_enum('.json3', True) == SubtitleFileExtension.JSON3
     assert SubtitleFileExtension.try_to_enum('.json3', False, None) == None
     assert SubtitleFileExtension.try_to_enum('.json3', True, None) == SubtitleFileExtension.JSON3
+
+
+@pytest.mark.mandatory
+def test_ffmpeg():
+    from pystandards.ffmpeg import FfmpegVideoCodec, FfmpegAudioCodec
+
+    assert FfmpegVideoCodec.PRORES.value == 'prores'
+    assert FfmpegVideoCodec.PRORES.name == 'PRORES'
+    assert FfmpegVideoCodec.to_enum('tiff') == FfmpegVideoCodec.TIFF
+
+    assert FfmpegAudioCodec.AAC.value == 'aac'
+    assert FfmpegAudioCodec.AAC.name == 'AAC'
+    assert FfmpegAudioCodec.to_enum('pcm_s8') == FfmpegAudioCodec.PCM_S8
