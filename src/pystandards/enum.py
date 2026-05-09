@@ -36,6 +36,15 @@ class BaseEnum(Enum):
         ]
     
     @classmethod
+    def default(
+        cls
+    ) -> 'BaseEnum':
+        """
+        Get the default value, which is always the first one.
+        """
+        return cls[0]
+    
+    @classmethod
     def _normalized_map(
         cls
     ):
@@ -95,6 +104,6 @@ class BaseEnum(Enum):
         there is no `Enum` item with that value.
         """
         try:
-            return BaseEnum.to_enum(value)
+            return cls.to_enum(value)
         except:
             return default
