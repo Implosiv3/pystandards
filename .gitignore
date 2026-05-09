@@ -1,0 +1,5 @@
+build/*
+dist/*
+pystandards.egg-info/*
+__pycache__
+*.bat
