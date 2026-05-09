@@ -2,6 +2,10 @@
 
 > Typed standards, constants, enums and canonical values for Python.
 
+<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"/>
+
+Github project: https://github.com/Implosiv3/pystandards
+
 `pystandards` provides strongly-typed constants and standardized values for common domains such as HTTP, MIME types, file extensions, languages, encodings, and more.
 
 Designed for:
