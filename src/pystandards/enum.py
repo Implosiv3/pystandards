@@ -185,6 +185,8 @@ class BaseEnum(Enum):
                 enum = cls
             ):
                 return True
+            
+            return False
         except Exception:
             return False
         
