@@ -24,6 +24,11 @@ def test_base_enum():
     class EmptyEnum(BaseEnum):
         pass
 
+    # Item variables
+    assert Color.all() == [Color.RED, Color.BLUE]
+    assert Color.names() == ['RED', 'BLUE']
+    assert Color.values() == ['red', 'blue']
+
     # Is valid name
     assert Color.is_valid_name('RED')
     assert not Color.is_valid_name('INVALID')

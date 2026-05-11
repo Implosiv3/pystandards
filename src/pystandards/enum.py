@@ -55,7 +55,7 @@ class BaseEnum(Enum):
         """
         Get the default value, which is always the first one.
         """
-        return cls[0]
+        return cls.all()[0]
     
     @classmethod
     def _normalized_map(
