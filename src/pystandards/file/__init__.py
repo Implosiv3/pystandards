@@ -57,6 +57,9 @@ class _FileExtensionMixin:
         - enum.value
         - enum.name
         """
+        if isinstance(value, cls):
+            return value
+
         value = (
             value.replace('.', '')
             if do_accept_dot else
