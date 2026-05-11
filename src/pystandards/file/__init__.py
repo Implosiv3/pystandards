@@ -2,6 +2,9 @@ from pystandards.file.utils import is_filename_valid_for_file_extension
 from pystandards.enum import BaseEnum as Enum
 from typing import Union
 
+import random
+import string
+
 
 class _FileExtensionMixin:
     """
@@ -99,6 +102,29 @@ class _FileExtensionMixin:
             filename = filename,
             file_extension_enum_class = cls
         )
+    
+    def get_filename(
+        self,
+        filename: Union[str, None] = None
+    ) -> str:
+        """
+        Get the `filename` provided with this file extension
+        or a random one if `filename` is `None` or an empty
+        string.
+        """
+        if (
+            isinstance(filename, str) and
+            not filename.strip()
+        ):
+            filename = None
+
+        filename = (
+            ''.join(random.choices(string.ascii_letters + string.digits, k = 10))
+            if filename is None else
+            filename
+        )
+
+        return f'{filename}{self.dotted}'
 
 
 class FileExtension(_FileExtensionMixin, Enum):

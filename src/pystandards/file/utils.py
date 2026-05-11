@@ -1,6 +1,5 @@
 from typing import Union
-
-import os
+from pathlib import Path
 
 
 def is_filename_valid_for_file_extension(
@@ -14,7 +13,7 @@ def is_filename_valid_for_file_extension(
     if not isinstance(filename, str):
         raise Exception('The "filename" provided is not a str.')
 
-    extension = os.path.splitext(filename)[1]
+    extension = Path(filename).suffix.removeprefix('.')
 
     return (
         False

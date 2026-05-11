@@ -105,6 +105,7 @@ def test_file():
     assert FileExtension.try_to_enum('.wav', True, None) == FileExtension.WAV
     assert FileExtension.is_filename_valid('example.pdf') is True
     assert FileExtension.is_filename_valid('example.itdoesntexist') is False
+    assert FileExtension.PDF.get_filename().endswith('.pdf')
 
     assert TextFileExtension.XML.value == 'xml'
     assert TextFileExtension.XML.name == 'XML'
@@ -115,6 +116,7 @@ def test_file():
     assert TextFileExtension.try_to_enum('.html', True, None) == TextFileExtension.HTML
     assert TextFileExtension.is_filename_valid('example.txt') is True
     assert TextFileExtension.is_filename_valid('example.itdoesntexist') is False
+    assert TextFileExtension.TXT.get_filename().endswith('.txt')
 
     assert ImageFileExtension.JPG.value == 'jpg'
     assert ImageFileExtension.JPG.name == 'JPG'
@@ -125,6 +127,7 @@ def test_file():
     assert ImageFileExtension.try_to_enum('.bmp', True, None) == ImageFileExtension.BMP
     assert ImageFileExtension.is_filename_valid('example.bmp') is True
     assert ImageFileExtension.is_filename_valid('example.itdoesntexist') is False
+    assert ImageFileExtension.BMP.get_filename().endswith('.bmp')
 
     assert VideoFileExtension.MP4.value == 'mp4'
     assert VideoFileExtension.MP4.name == 'MP4'
@@ -135,6 +138,7 @@ def test_file():
     assert VideoFileExtension.try_to_enum('.mov', True, None) == VideoFileExtension.MOV
     assert VideoFileExtension.is_filename_valid('example.mov') is True
     assert VideoFileExtension.is_filename_valid('example.itdoesntexist') is False
+    assert VideoFileExtension.MOV.get_filename().endswith('.mov')
 
     assert AudioFileExtension.MP3.value == 'mp3'
     assert AudioFileExtension.MP3.name == 'MP3'
@@ -145,6 +149,7 @@ def test_file():
     assert AudioFileExtension.try_to_enum('.wav', True, None) == AudioFileExtension.WAV
     assert AudioFileExtension.is_filename_valid('example.wav') is True
     assert AudioFileExtension.is_filename_valid('example.itdoesntexist') is False
+    assert AudioFileExtension.MP3.get_filename().endswith('.mp3')
 
     assert SubtitleFileExtension.SRT.value == 'srt'
     assert SubtitleFileExtension.SRT.name == 'SRT'
@@ -155,6 +160,7 @@ def test_file():
     assert SubtitleFileExtension.try_to_enum('.json3', True, None) == SubtitleFileExtension.JSON3
     assert SubtitleFileExtension.is_filename_valid('example.json3') is True
     assert SubtitleFileExtension.is_filename_valid('example.itdoesntexist') is False
+    assert SubtitleFileExtension.SRT.get_filename().endswith('.srt')
 
 
 @pytest.mark.mandatory
