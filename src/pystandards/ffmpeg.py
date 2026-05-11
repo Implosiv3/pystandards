@@ -4,7 +4,7 @@ the `ffmpeg` codecs that is shown in this
 link:
 - https://gist.github.com/dougal/160f33aa6f0c38c95b4bf4dbe4732c09
 """
-from pystandards.enum import BaseEnum as Enum
+from pystandards.enum import BaseEnumStr as Enum
 
 
 class FfmpegVideoCodec(Enum):

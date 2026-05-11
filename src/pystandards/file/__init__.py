@@ -1,5 +1,5 @@
 from pystandards.file.utils import is_filename_valid_for_file_extension
-from pystandards.enum import BaseEnum as Enum
+from pystandards.enum import BaseEnumStr as Enum
 from typing import Union
 
 import random
@@ -59,12 +59,13 @@ class _FileExtensionMixin:
         """
         if isinstance(value, cls):
             return value
-
-        value = (
-            value.replace('.', '')
-            if do_accept_dot else
-            value
-        )
+        
+        if isinstance(value, str):
+            value = (
+                value.replace('.', '')
+                if do_accept_dot else
+                value
+            )
 
         return super().to_enum(value)
     

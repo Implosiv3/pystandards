@@ -1,4 +1,4 @@
-from pystandards.enum import BaseEnum as Enum
+from pystandards.enum import BaseEnumStr as Enum
 
 
 class HttpContentType(Enum):

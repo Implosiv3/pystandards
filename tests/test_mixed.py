@@ -3,25 +3,26 @@ import pytest
 
 @pytest.mark.mandatory
 def test_base_enum():
-    from pystandards.enum import BaseEnum, _get_enum_from_value
+    from pystandards.enum import BaseEnumStr, _get_enum_from_value
 
-    class Color(BaseEnum):
+    class Color(BaseEnumStr):
         RED = 'red'
         BLUE = 'blue'
 
-    class Aliases(BaseEnum):
+    class Aliases(BaseEnumStr):
         YES = ['yes', 'y', '1']
         NO = ['no', 'n', '0']
 
-    class Permission(BaseEnum):
+    class Permission(BaseEnumStr):
         READ = 'read'
         WRITE = 'write'
 
-    class Roles(BaseEnum):
+    # TODO: This is not actually a Str
+    class Roles(BaseEnumStr):
         USER = [Permission.READ]
         ADMIN = [Permission.READ, Permission.WRITE]
 
-    class EmptyEnum(BaseEnum):
+    class EmptyEnum(BaseEnumStr):
         pass
 
     # Item variables
