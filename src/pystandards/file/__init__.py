@@ -311,6 +311,10 @@ class FileExtension(_FileExtensionMixin, Enum):
     """
     Txt text file extension
     """
+    CSS = 'css'
+    """
+    Css text file extension
+    """
     CSV = 'csv'
     """
     Csv text file extension
@@ -346,6 +350,10 @@ class FileExtension(_FileExtensionMixin, Enum):
     YML = 'yml'
     """
     Yml text file extension
+    """
+    ZIP = 'zip'
+    """
+    Compressed file extension.
     """
 
     
@@ -562,6 +570,14 @@ class TextFileExtension(_FileExtensionMixin, Enum):
     dot and are in lower case.
     """
 
+    CSS = FileExtension.CSS.value
+    """
+    Css text file extension
+    """
+    CSV = FileExtension.CSV.value
+    """
+    Csv text file extension
+    """
     TXT = FileExtension.TXT.value
     """
     Txt subtitle file extension

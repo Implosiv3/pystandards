@@ -1,4 +1,5 @@
 from pystandards.enum import BaseEnumStr as Enum
+from pystandards.file import AudioFileExtension, VideoFileExtension, ImageFileExtension, TextFileExtension, FileExtension
 
 
 class HttpContentType(Enum):
@@ -130,3 +131,35 @@ class HttpMethod(Enum):
 
     # Icecast / unofficial
     SOURCE = 'SOURCE'
+
+
+# TODO: Maybe move (?)
+HTTP_CONTENT_TYPE_TO_FILE_EXTENSION = {
+    HttpContentType.IMAGE_JPEG: ImageFileExtension.JPG,
+    HttpContentType.IMAGE_PNG: ImageFileExtension.PNG,
+    HttpContentType.IMAGE_WEBP: ImageFileExtension.WEBP,
+    HttpContentType.IMAGE_GIF: ImageFileExtension.GIF,
+    HttpContentType.VIDEO_MP4: VideoFileExtension.MP4,
+    HttpContentType.VIDEO_WEBM: VideoFileExtension.WEBM,
+    HttpContentType.VIDEO_X_MSVIDEO: VideoFileExtension.AVI,
+    HttpContentType.AUDIO_MPEG: AudioFileExtension.MP3,
+    HttpContentType.AUDIO_WAV: AudioFileExtension.WAV,
+    HttpContentType.AUDIO_OGG: AudioFileExtension.OGG,
+    HttpContentType.AUDIO_FLAC: AudioFileExtension.FLAC,
+    HttpContentType.APPLICATION_JSON: TextFileExtension.JSON,
+    HttpContentType.TEXT_PLAIN: TextFileExtension.TXT,
+    HttpContentType.TEXT_HTML: TextFileExtension.HTML,
+    HttpContentType.TEXT_CSS: TextFileExtension.CSS,
+    HttpContentType.TEXT_CSV: TextFileExtension.CSV,
+    HttpContentType.APPLICATION_PDF: FileExtension.PDF,
+    HttpContentType.APPLICATION_ZIP: FileExtension.ZIP,
+}
+"""
+Dict to map the `HttpContentType` to its
+corresponding file extension Enum class.
+
+This is very useful when we want to choose
+the filename of a file that we are getting
+from some url hat includes its content
+type.
+"""
