@@ -95,7 +95,7 @@ def test_lang():
 
 @pytest.mark.mandatory
 def test_file():
-    from pystandards.file import FileExtension, TextFileExtension, ImageFileExtension, VideoFileExtension, AudioFileExtension, SubtitleFileExtension
+    from pystandards.file import FileExtension, TextFileExtension, ImageFileExtension, VideoFileExtension, AudioFileExtension, SubtitleFileExtension, get_extension
 
     assert FileExtension.TXT.value == 'txt'
     assert FileExtension.PDF.name == 'PDF'
@@ -168,6 +168,17 @@ def test_file():
     assert SubtitleFileExtension.is_filename_valid('example.json3') is True
     assert SubtitleFileExtension.is_filename_valid('example.itdoesntexist') is False
     assert SubtitleFileExtension.SRT.get_filename().endswith('.srt')
+
+    assert get_extension('wav') == AudioFileExtension.WAV
+    assert get_extension('.wav') == AudioFileExtension.WAV
+    assert get_extension('mov') == VideoFileExtension.MOV
+    assert get_extension('.mov') == VideoFileExtension.MOV
+    assert get_extension('bmp') == ImageFileExtension.BMP
+    assert get_extension('.bmp') == ImageFileExtension.BMP
+    assert get_extension('txt') == TextFileExtension.TXT
+    assert get_extension('.txt') == TextFileExtension.TXT
+    assert get_extension('srt') == SubtitleFileExtension.SRT
+    assert get_extension('.srt') == SubtitleFileExtension.SRT
 
 
 @pytest.mark.mandatory

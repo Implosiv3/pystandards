@@ -195,14 +195,14 @@ crypto-eth-addresses = ["eth-hash[pycryptodome] (>=0.7.0)"]
 
 [[package]]
 name = "yta-validation"
-version = "0.2.0"
+version = "0.2.1"
 description = "Youtube Autonomous Validation Module"
 optional = false
 python-versions = "<3.14,>=3.8"
 groups = ["main"]
 files = [
-    {file = "yta_validation-0.2.0-py3-none-any.whl", hash = "sha256:81bb7fb77f9bf75f035057042270373c5f9e6394447b3817c5855dc6a1b99f26"},
-    {file = "yta_validation-0.2.0.tar.gz", hash = "sha256:1d14ebcbb9b38dc65424cde71bd1f2d6bef7ba3af603d6419ebae48c01db74ad"},
+    {file = "yta_validation-0.2.1-py3-none-any.whl", hash = "sha256:a7a3cf40cd37dae5f097e246294e2a86101be621af931eac9d710a77200564d4"},
+    {file = "yta_validation-0.2.1.tar.gz", hash = "sha256:56890f1d1b466f001feb375b5c32ab1764fefb83dce7cd4884cdf3c01af291b4"},
 ]
 
 [package.dependencies]

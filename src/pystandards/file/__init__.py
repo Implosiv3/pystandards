@@ -347,7 +347,7 @@ class FileExtension(_FileExtensionMixin, Enum):
     """
     Yml text file extension
     """
-    
+
     
 class ImageFileExtension(_FileExtensionMixin, Enum):
     """
@@ -599,4 +599,44 @@ class TextFileExtension(_FileExtensionMixin, Enum):
     Yml text file extension
     """
 
-# TODO: Associate 'FileType' with extensions
+file_extensions = [
+    AudioFileExtension,
+    VideoFileExtension,
+    ImageFileExtension,
+    TextFileExtension,
+    SubtitleFileExtension,
+    FileExtension
+]
+"""
+List including all the file extensions, ordered
+from more specific to less specific. Very useful
+to use them to try to find the more specific
+class that includes an extension writen as a
+string.
+"""
+
+def get_extension(
+    extension: str
+) -> Union[AudioFileExtension, VideoFileExtension, ImageFileExtension, TextFileExtension, SubtitleFileExtension, FileExtension, None]:
+    """
+    Get the most specific file extension Enum class
+    associated to the given `extension` string, that
+    can include (or not) the dot (`.`).
+
+    `.wav => AudioFileExtension.WAV`
+    `.mov => VideoFileExtension.MOV`
+
+    It will return `None` if the `extension` provided
+    is not a valid extension.
+    """
+    if not isinstance(extension, str):
+        raise Exception('The "extension" provided is not a string.')
+    
+    extension = extension.strip().replace('.', '')
+    for file_extension in file_extensions:
+        _extension = file_extension.try_to_enum(extension)
+
+        if _extension is not None:
+            return _extension
+        
+    return None
