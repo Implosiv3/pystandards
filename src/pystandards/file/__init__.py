@@ -1,3 +1,9 @@
+"""
+Any specific file extension that you register
+must be also set as the general `FileExtension`,
+that is the one that will be used to associate
+with other entities.
+"""
 from pystandards.file.utils import is_filename_valid_for_file_extension
 from pystandards.enum import BaseEnumStr as Enum
 from typing import Union
@@ -129,6 +135,7 @@ class _FileExtensionMixin:
         )
 
         return f'{filename}{self.dotted}'
+    
 
 
 class FileExtension(_FileExtensionMixin, Enum):
@@ -161,9 +168,17 @@ class FileExtension(_FileExtensionMixin, Enum):
     """
     Bitmap Image File
     """
+    ICO = 'ico'
+    """
+    Icon File
+    """
     GIF = 'gif'
     """
     Graphics Interchange Format
+    """
+    SVG = 'svg'
+    """
+    Scalable Vector Graphics
     """
     TIFF = 'tiff'
     """
@@ -327,9 +342,18 @@ class FileExtension(_FileExtensionMixin, Enum):
     """
     Xml text file extension
     """
+    JS = 'js'
+    """
+    Javascript text file extension
+    """
     HTML = 'html'
     """
     Html text file extension
+    """
+    HTM = 'htm'
+    """
+    Html text file extension (name for backward
+    compatibility).
     """
     MD = 'md'
     """
@@ -351,13 +375,70 @@ class FileExtension(_FileExtensionMixin, Enum):
     """
     Yml text file extension
     """
+    GZ = 'gz'
+    """
+    Compressed file extension
+    """
+    TAR = 'tar'
+    """
+    Compressed file extension
+    """
     ZIP = 'zip'
     """
     Compressed file extension.
     """
+    WOFF = 'woff'
+    """
+    Web Open Font Format
+    """
+    WOFF2 = 'woff2'
+    """
+    Web Open Font Format 2.0
+    """
+
+
+    @classmethod
+    def from_http_mime_type(
+        cls,
+        http_mime_type: Union['HttpMimeType', str]
+    ) -> Union['FileExtension', None]:
+        """
+        Get the `FileExtension` that is associated to
+        the `http_mime_type` provided. It can be None
+        if the mime type is not registered.
+        """
+        from pystandards.http.mime_type import HttpMimeType, HTTP_MIME_TYPE_TO_FILE_EXTENSION
+
+        http_mime_type = HttpMimeType.to_enum(http_mime_type)
+
+        return HTTP_MIME_TYPE_TO_FILE_EXTENSION.get(http_mime_type, None)
 
     
-class ImageFileExtension(_FileExtensionMixin, Enum):
+class _SpecificFileExtensionMixin:
+    """
+    *For internal use only*
+
+    Mixin class to implement some common
+    functionality in the different specific
+    file extension classes.
+    """
+
+    @property
+    def as_file_extension(
+        self
+    ) -> FileExtension:
+        """
+        Get this `ImageFileExtension` instance but as
+        a general `FileExtension` instance.
+
+        This method is useful when the file extension
+        is being associated to something else, such as
+        a mime type.
+        """
+        return FileExtension.to_enum(self.value)
+
+
+class ImageFileExtension(_FileExtensionMixin, _SpecificFileExtensionMixin, Enum):
     """
     Enum class to encapsulate all existing image file
     extensions.
@@ -386,9 +467,17 @@ class ImageFileExtension(_FileExtensionMixin, Enum):
     """
     Bitmap Image File
     """
+    ICO = FileExtension.ICO.value
+    """
+    Icon File
+    """
     GIF = FileExtension.GIF.value
     """
     Graphics Interchange Format
+    """
+    SVG = FileExtension.SVG.value
+    """
+    Scalable Vector Graphics
     """
     TIFF = FileExtension.TIFF.value
     """
@@ -423,9 +512,20 @@ class ImageFileExtension(_FileExtensionMixin, Enum):
     Corel Draw
     """
     # TODO: Add more
+
+
+    @property
+    def as_file_extension(
+        self
+    ) -> FileExtension:
+        """
+        Get this `ImageFileExtension` instance but as
+        a general `FileExtension` instance.
+        """
+        return FileExtension.to_enum(self.value)
     
 
-class AudioFileExtension(_FileExtensionMixin, Enum):
+class AudioFileExtension(_FileExtensionMixin, _SpecificFileExtensionMixin, Enum):
     """
     Enum class to encapsulate all existing audio file
     extensions.
@@ -476,7 +576,7 @@ class AudioFileExtension(_FileExtensionMixin, Enum):
     """
 
 
-class VideoFileExtension(_FileExtensionMixin, Enum):
+class VideoFileExtension(_FileExtensionMixin, _SpecificFileExtensionMixin, Enum):
     """
     Enum class to encapsulate all existing video file
     extensions.
@@ -516,7 +616,7 @@ class VideoFileExtension(_FileExtensionMixin, Enum):
     # TODO: Add more
 
 
-class SubtitleFileExtension(_FileExtensionMixin, Enum):
+class SubtitleFileExtension(_FileExtensionMixin, _SpecificFileExtensionMixin, Enum):
     """
     Enum class to encapsulate all existing subtitle
     file extensions.
@@ -561,7 +661,7 @@ class SubtitleFileExtension(_FileExtensionMixin, Enum):
     """
     
 
-class TextFileExtension(_FileExtensionMixin, Enum):
+class TextFileExtension(_FileExtensionMixin, _SpecificFileExtensionMixin, Enum):
     """
     Enum class to encapsulate all existing text
     file extensions.
@@ -590,7 +690,15 @@ class TextFileExtension(_FileExtensionMixin, Enum):
     """
     Xml text file extension
     """
+    JS = FileExtension.JS.value
+    """
+    Js text file extension
+    """
     HTML = FileExtension.HTML.value
+    """
+    Html text file extension
+    """
+    HTM = FileExtension.HTM.value
     """
     Html text file extension
     """
@@ -615,14 +723,14 @@ class TextFileExtension(_FileExtensionMixin, Enum):
     Yml text file extension
     """
 
-file_extensions = [
+file_extensions: tuple = (
     AudioFileExtension,
     VideoFileExtension,
     ImageFileExtension,
     TextFileExtension,
     SubtitleFileExtension,
     FileExtension
-]
+)
 """
 List including all the file extensions, ordered
 from more specific to less specific. Very useful

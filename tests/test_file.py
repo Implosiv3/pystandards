@@ -2,98 +2,6 @@ import pytest
 
 
 @pytest.mark.mandatory
-def test_base_enum():
-    from pystandards.enum import BaseEnumStr, _get_enum_from_value
-
-    class Color(BaseEnumStr):
-        RED = 'red'
-        BLUE = 'blue'
-
-    class Aliases(BaseEnumStr):
-        YES = ['yes', 'y', '1']
-        NO = ['no', 'n', '0']
-
-    class Permission(BaseEnumStr):
-        READ = 'read'
-        WRITE = 'write'
-
-    # TODO: This is not actually a Str
-    class Roles(BaseEnumStr):
-        USER = [Permission.READ]
-        ADMIN = [Permission.READ, Permission.WRITE]
-
-    class EmptyEnum(BaseEnumStr):
-        pass
-
-    # Item variables
-    assert Color.all() == [Color.RED, Color.BLUE]
-    assert Color.names() == ['RED', 'BLUE']
-    assert Color.values() == ['red', 'blue']
-
-    # Is valid name
-    assert Color.is_valid_name('RED')
-    assert not Color.is_valid_name('INVALID')
-
-    # Is valid name (ignore_case=True)
-    assert Color.is_valid_name('red', do_ignore_case = True)
-    assert Color.is_valid_name('ReD', do_ignore_case = True)
-
-    # Getting enum from values
-    assert _get_enum_from_value('red', Color) == Color.RED
-    assert _get_enum_from_value('invalid', Color) is None
-    assert _get_enum_from_value('y', Aliases) == Aliases.YES
-    assert _get_enum_from_value(Permission.WRITE, Roles) == Roles.ADMIN
-    assert _get_enum_from_value('WRITE', Roles) == Roles.ADMIN
-    assert _get_enum_from_value('write', Roles) == Roles.ADMIN
-
-    # Items
-    assert Color.all() == [Color.RED, Color.BLUE]
-    assert Color.names() == ['RED', 'BLUE']
-    assert Color.values() == ['red', 'blue']
-
-    # Empty BaseEnum
-    assert EmptyEnum.all() == []
-    assert EmptyEnum.names() == []
-    assert EmptyEnum.values() == []
-    assert _get_enum_from_value('anything', EmptyEnum) is None
-    assert not EmptyEnum.is_valid_name('ANYTHING')
-
-    # Special cases
-    assert _get_enum_from_value(None, Color) is None
-    assert not Color.is_valid_name(None)
-    assert not Color.is_valid_name(123)
-    assert not Color.is_valid_name([])
-    assert not Color.is_valid_name({})
-    assert not Color.is_valid_name('red')
-    assert not Color.is_valid_name('ReD')
-    assert Color.is_valid_name(
-        'ReD',
-        do_ignore_case = True
-    )
-
-@pytest.mark.mandatory
-def test_http():
-    from pystandards.http import HttpContentType, HttpMethod
-    
-    assert HttpContentType.APPLICATION_JSON.value == 'application/json'
-    assert HttpContentType.APPLICATION_JSON.name == 'APPLICATION_JSON'
-    assert HttpContentType.to_enum('application/json') == HttpContentType.APPLICATION_JSON
-
-    assert HttpMethod.GET.value == 'GET'
-    assert HttpMethod.GET.name == 'GET'
-    assert HttpMethod.to_enum('POST') == HttpMethod.POST
-
-
-@pytest.mark.mandatory
-def test_lang():
-    from pystandards.lang import LanguageISO639
-
-    assert LanguageISO639.SPANISH.value == 'es'
-    assert LanguageISO639.ENGLISH.name == 'ENGLISH'
-    assert LanguageISO639.to_enum('it') == LanguageISO639.ITALIAN
-
-
-@pytest.mark.mandatory
 def test_file():
     from pystandards.file import FileExtension, TextFileExtension, ImageFileExtension, VideoFileExtension, AudioFileExtension, SubtitleFileExtension, get_extension
 
@@ -182,13 +90,14 @@ def test_file():
 
 
 @pytest.mark.mandatory
-def test_ffmpeg():
-    from pystandards.ffmpeg import FfmpegVideoCodec, FfmpegAudioCodec
+def test_file_extension_from_mime_type():
+    from pystandards.file import FileExtension
+    from pystandards.http.mime_type import HttpMimeType
+    from tests.utils import assert_pytest_raises_exception
 
-    assert FfmpegVideoCodec.PRORES.value == 'prores'
-    assert FfmpegVideoCodec.PRORES.name == 'PRORES'
-    assert FfmpegVideoCodec.to_enum('tiff') == FfmpegVideoCodec.TIFF
-
-    assert FfmpegAudioCodec.AAC.value == 'aac'
-    assert FfmpegAudioCodec.AAC.name == 'AAC'
-    assert FfmpegAudioCodec.to_enum('pcm_s8') == FfmpegAudioCodec.PCM_S8
+    assert FileExtension.from_http_mime_type(HttpMimeType.AUDIO_WAV) == FileExtension.WAV
+    assert FileExtension.from_http_mime_type('audio/wav') == FileExtension.WAV
+    assert_pytest_raises_exception(
+        function = lambda: FileExtension.from_http_mime_type('audio/invented'),
+        exception_message = "'audio/invented' is not a valid HttpMimeType"
+    )

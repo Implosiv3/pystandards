@@ -1,6 +1,6 @@
 [project]
 name = "pystandards"
-version = "0.0.14"
+version = "0.0.15"
 description = "Standards but in Python"
 authors = [
     {name = "danialcala94",email = "danielalcalavalera@gmail.com"}
